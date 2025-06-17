@@ -25,7 +25,7 @@ function renderNotes() {
   }
 
   notes.forEach((note, index) => {
-    if (filterType !== "Усе" && note.type !== filterType) return; // ← Фільтрація
+    if (filterType !== "Усе" && note.type !== filterType) return; 
 
     const li = document.createElement("li");
     if (note.archived) li.classList.add("archived");
