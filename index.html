@@ -17,11 +17,11 @@
   <div class="input-row">
     <input id="noteInput" type="text" placeholder="Заголовок" maxlength="50">
   <select id="noteType" title="Тип нотатки">
-    <option value="Не терміново">Не терміново</option>
-    <option value="Домашня робота">Домашня робота</option>
-    <option value="Список купівлі">Список купівлі</option>
-    <option value="Домашні справи">Домашні справи</option>
-    <option value="Терміново">Терміново</option>
+      <option value="Не терміново">🕓 Не терміново</option>
+      <option value="Домашня робота">📚 Домашня робота</option>
+      <option value="Список купівлі">🛒 Список купівлі</option>
+      <option value="Домашні справи">🏠 Домашні справи</option>
+      <option value="Терміново">🔥 Терміново</option>
   </select>
   </div>
   <textarea id="textInput" rows="3" placeholder="Текст нотатки" maxlength="200"></textarea>
@@ -29,7 +29,29 @@
   <button onclick="clearNotes()">🗑️Очистити все</button>
 </div>
 
-    <ul id="noteList"></ul>
+<select id="filterType" onchange="renderNotes()">
+  <option value="Усе">📋 Усе</option>
+  <option value="Не терміново">🕓 Не терміново</option>
+  <option value="Домашня робота">📚 Домашня робота</option>
+  <option value="Список купівлі">🛒 Список купівлі</option>
+  <option value="Домашні справи">🏠 Домашні справи</option>
+  <option value="Терміново">⚠️ Терміново</option>
+</select>
+
+<div class="note-stats">
+  <table id="typeStats">
+    <thead>
+      <tr>
+        <th>📂 Тип</th>
+        <th>🔢 Кількість</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+
+<ul id="noteList"></ul>
 
     <script
       src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
