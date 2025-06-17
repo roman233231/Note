@@ -5,6 +5,7 @@
 }
 
 body {
+  position: relative;
   font-family: "Segoe UI", sans-serif;
   background: #3c3c4d;
   background: linear-gradient(137deg,rgba(60, 60, 77, 1) 20%, rgba(92, 92, 92, 1) 55%, rgba(132, 132, 138, 1) 98%);
@@ -77,6 +78,10 @@ select option {
 
 ::placeholder {
   color: #ddd;
+}
+
+textarea {
+  resize: none;
 }
 
 button {
@@ -359,4 +364,89 @@ body {
 
 .container h2{
   font-family: 'Shantell Sans', cursive;
+}
+
+.note-stats {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  z-index: 100;
+  max-width: 220px;
+}
+
+#typeStats {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#typeStats th,
+#typeStats td {
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+#typeStats thead {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#typeStats tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+@media (max-width: 600px) {
+  .note-stats {
+    position: static;
+    margin: 10px auto;
+    max-width: 90%;
+  }
+}
+#typeFilter {
+  position: absolute;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: #ffffffcc;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  margin: 10px 0 30px 0;
+  max-width: 450px;
+}
+
+#filterType{
+  max-width: 450px;
+}
+
+@media (max-width: 500px) {
+  #filterType {
+        width: 250px;
+        max-width: 100%;
+  }
+}
+@media (max-width: 400px) {
+  #filterType {
+        width: 180px;
+        max-width: 100%;
+        margin: 0 0 10px 0;
+  }
+}
+@media (max-width: 400px) {
+  .note-stats {
+    max-width: 180px;
+  }
+  #typeStats td{
+    font-size: 8px;
+  }
+   #typeStats th{
+    font-size: 8px;
+  }
 }
