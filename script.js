@@ -1,4 +1,4 @@
-let notes = JSON.parse(localStorage.getItem("notes")) || [];
+ let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
 function saveNotes() {
   localStorage.setItem("notes", JSON.stringify(notes));
@@ -6,28 +6,40 @@ function saveNotes() {
 
 function renderNotes() {
   const noteList = document.getElementById("noteList");
+  const filterType = document.getElementById("filterType").value;
   noteList.innerHTML = "";
 
-  notes.forEach((note, index) => {
-    const li = document.createElement("li");
+  const typeCounts = {};
+  
+  notes.forEach(note => {
+    const type = note.type || "Невідомо";
+    typeCounts[type] = (typeCounts[type] || 0) + 1;
+  });
 
+  const tbody = document.querySelector("#typeStats tbody");
+  tbody.innerHTML = "";
+  for (const [type, count] of Object.entries(typeCounts)) {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${type}</td><td>${count}</td>`;
+    tbody.appendChild(row);
+  }
+
+  notes.forEach((note, index) => {
+    if (filterType !== "Усе" && note.type !== filterType) return; // ← Фільтрація
+
+    const li = document.createElement("li");
     if (note.archived) li.classList.add("archived");
 
-    
     let noteClass = "note-type-none";
     switch (note.type) {
       case "Терміново":
-        noteClass = "note-type-urgent";
-        break;
+        noteClass = "note-type-urgent"; break;
       case "Домашня робота":
-        noteClass = "note-type-homework";
-        break;
+        noteClass = "note-type-homework"; break;
       case "Список купівлі":
-        noteClass = "note-type-shopping";
-        break;
+        noteClass = "note-type-shopping"; break;
       case "Домашні справи":
-        noteClass = "note-type-house";
-        break;
+        noteClass = "note-type-house"; break;
     }
     li.classList.add(noteClass);
 
@@ -35,7 +47,6 @@ function renderNotes() {
     typeEl.textContent = `Тип: ${note.type}`;
     typeEl.style.fontFamily = "cursive";
     typeEl.style.fontWeight = "bold";
-    typeEl.style.left = "15px"
     li.appendChild(typeEl);
 
     const titleEl = document.createElement("div");
@@ -43,6 +54,9 @@ function renderNotes() {
     titleEl.style.fontWeight = "bold";
     titleEl.contentEditable = true;
     titleEl.oninput = () => {
+      if (titleEl.textContent.length > 50) {
+        titleEl.textContent = titleEl.textContent.slice(0, 50);
+      }
       notes[index].title = titleEl.textContent;
       saveNotes();
     };
@@ -52,6 +66,9 @@ function renderNotes() {
     textEl.textContent = note.text;
     textEl.contentEditable = true;
     textEl.oninput = () => {
+      if (textEl.textContent.length > 200) {
+        textEl.textContent = textEl.textContent.slice(0, 200);
+      }
       notes[index].text = textEl.textContent;
       saveNotes();
     };
@@ -81,7 +98,6 @@ function renderNotes() {
       renderNotes();
     };
     li.appendChild(archivet);
-    
 
     noteList.appendChild(li);
   });
